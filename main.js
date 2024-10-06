@@ -8,7 +8,7 @@ require('express')().listen(PORT || 3000); //bind port for heroku
 
 const ICBC = require('./icbc');
 const Users = require('./users');
-const Locations = require('./data/locations.json');
+const Locations = require('./locations.json');
 const Time = require('./time');
 const TelegramBot = require('./telegram');
 const tg = new TelegramBot(TELEGRAM_BOT_API_KEY);

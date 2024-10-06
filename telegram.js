@@ -1,6 +1,5 @@
 const TelegramBotApi = require('node-telegram-bot-api');
-const db = require('../database');
-const log = require('./logger');
+const db = require('./database');
 
 const telegramBotChats = 'telegram_bot';
 
@@ -26,8 +25,8 @@ module.exports = class TelegramBot {
                 try {
                     Commands[command].action(message, this.bot);
                 } catch (err) {
-                    log.error(err);
-                    log.error('Command: ' + command);
+                    console.error(err);
+                    console.error('Command: ' + command);
                 }
             });
             if (notEmpty(message) && message.text.trim() === '/poo') {
@@ -41,7 +40,7 @@ module.exports = class TelegramBot {
                     this.bot.startPolling({ restart: true });
                 }
             } catch (err) {
-                log.error(err);
+                console.error(err);
             }
         });
     }
@@ -59,15 +58,15 @@ module.exports = class TelegramBot {
                 await this.bot.sendMessage(chatId, message, { parse_mode: 'html' });
 
             } catch (err) {
-                log.error(err);
+                console.error(err);
             }
         } catch (err) {
-            log.error(err);
+            console.error(err);
         }
     }
 
     _sendMessageToConsole(message) {
-        log.info(`Telegram: ${message}`);
+        console.log(`Telegram: ${message}`);
     }
 };
 
@@ -167,7 +166,7 @@ function notEmpty(message) {
 
 function error(err, message, bot) {
     bot.sendMessage(message.chat.id, 'Something went wrong 😔');
-    log.error(err);
+    console.error(err);
 }
 
 function validateMessage(message) {

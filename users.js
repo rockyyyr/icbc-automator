@@ -1,17 +1,17 @@
 const db = require('./database');
 
 function updateAuthToken(lastname, authToken) {
-    return db('users')
+    return db('user_accounts')
         .where({ lastname })
         .update({ authToken });
 }
 
 function get() {
-    return db('users').select().where({ enabled: true }).first();
+    return db('user_accounts').select().where({ enabled: true }).first();
 }
 
 function disable(lastname) {
-    return db('users')
+    return db('user_accounts')
         .where({ lastname })
         .update({ enabled: false });
 }
