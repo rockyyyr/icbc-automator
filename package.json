@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "dev": "NODE_ENV=development node main.js",
-        "start": "NODE_ENV=production node main.js"
+        "start": "NODE_ENV=production npm run migrate && node main.js",
+        "migrate": "knex --knexfile ./database/knexfile.js migrate:latest"
     },
     "keywords": [],
     "author": "",
