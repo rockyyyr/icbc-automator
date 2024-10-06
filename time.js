@@ -2,6 +2,7 @@ const Moment = require('moment-timezone');
 
 const dateFormat = 'YYYY-MM-DD';
 const dateTimeFormat = 'YYYY-MM-DD HH:mm';
+const displayFormat = 'YYYY-MM-DD h:mm:ss a';
 
 const toMoment = (...args) => Moment(...args).tz('America/Vancouver');
 const icbcToMoment = (date, time) => toMoment(`${date} ${time}`, dateTimeFormat);
@@ -11,6 +12,7 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 module.exports = {
     dateFormat,
     dateTimeFormat,
+    displayFormat,
     toMoment,
     icbcToMoment,
     isBetween,

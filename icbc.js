@@ -1,50 +1,90 @@
 const axios = require('axios');
 const Endpoints = require('./endpoints');
 const Time = require('./time');
+const Users = require('./users');
 
 const ALL_DAYS = '[0,1,2,3,4,5,6]';
 const ALL_TIMES = '[0,1]';
 
 class ICBC {
-    constructor(lastName, keyword, licence, newAppointmentThreshold = 1) {
-        this.newAppointmentThreshold = newAppointmentThreshold;
-        this.lastName = lastName;
-        this.keyword = keyword;
-        this.licence = licence;
+    constructor(user) {
+        this.newAppointmentThreshold = user.threshold;
+        this.lastName = user.lastname;
+        this.keyword = user.keyword;
+        this.licence = user.licence;
+        this.authToken = user.authToken;
 
         this.driverId = null;
         this.examType = null;
         this.email = null;
         this.phone = null;
-        this.authToken = null;
         this.currentAppointmentDate = null;
         this.latestAcceptableDate = null;
         this.earliestAppointmentDate = null;
+        this.loginAttempts = 0;
     }
 
     headers(endpoint) {
         const headers = {
             Dnt: 1,
             referer: endpoint.referer,
-            Authorization: this.authToken,
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
             'Content-Type': 'application/json',
         };
 
-        if (this.authToken !== null) {
+        if (!endpoint.skipAuth) {
             headers.Authorization = this.authToken;
         }
 
         return headers;
     }
 
-    request(endpoint, data) {
-        return axios({
-            method: endpoint.type,
-            url: endpoint.url,
-            headers: this.headers(endpoint),
-            data
-        });
+    async request(endpoint, data) {
+        const doRequest = headers => {
+            return axios({
+                method: endpoint.type,
+                url: endpoint.url,
+                headers,
+                data
+            });
+        };
+
+        let response;
+
+        try {
+            response = await doRequest(this.headers(endpoint));
+
+        } catch (error) {
+            if (error.response.status === 403) {
+
+                if (this.loginAttempts > 5) {
+                    console.log('login attempts exceeded');
+
+                    try {
+                        await Users.disable(this.lastName);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    throw error;
+
+                } else {
+                    this.loginAttempts++;
+                }
+
+                try {
+                    await this.login();
+                    response = await doRequest(this.headers(endpoint));
+
+                } catch (error) {
+                    console.log(error);
+                }
+
+            } else {
+                throw error;
+            }
+        }
+
+        return response;
     }
 
     async login() {
@@ -61,6 +101,8 @@ class ICBC {
             this.email = data.email;
             this.phone = data.phoneNum;
             this.authToken = response.headers.authorization;
+
+            await Users.updateAuthToken(this.lastName, this.authToken);
 
         } else {
             return Promise.reject(response);
@@ -81,6 +123,9 @@ class ICBC {
             this.examType = exam.code;
             this.earliestAppointmentDate = Time.toMoment(date, Time.dateFormat);
         }
+
+        console.log('successfully logged in');
+        this.loginAttempts = 0;
 
         return response.data;
     }

@@ -5,6 +5,7 @@ const log = require('./logger');
 const telegramBotChats = 'telegram_bot';
 
 const BOT_KEY = process.env.TELEGRAM_BOT_KEY;
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
 module.exports = class TelegramBot {
     constructor(token) {
@@ -45,61 +46,21 @@ module.exports = class TelegramBot {
         });
     }
 
-    async sendMessage(message, chatId) {
+    async sendMessage(message) {
         if (this.disabled) {
             return;
         }
-        this._sendMessageToChat(message, chatId);
-    }
-
-    async sendPhoto(buffer, chatId) {
-        if (this.disabled) {
-            return;
-        }
-
-        try {
-            // const chatIds = await db
-            //     .select('chatId')
-            //     .from(telegramBotChats)
-            //     .where('botKey', process.env.TELEGRAM_BOT_KEY);
-
-            // if (chatIds.length > 0) {
-            // chatIds.forEach(async ({ chatId }) => {
-            try {
-                await this.bot.sendPhoto(chatId, buffer);
-                log.info('Sent success image');
-            } catch (err) {
-                // if (err.message.includes('403 Forbidden')) {
-                //     await db(chatType).where('chatId', chatId).del();
-                // }
-                log.error(err);
-            }
-            // });
-            // }
-        } catch (err) {
-            log.error(err);
-        }
+        this._sendMessageToChat(message, TELEGRAM_CHAT_ID);
     }
 
     async _sendMessageToChat(message, chatId) {
         try {
-            // const chatIds = await db
-            //     .select('chatId')
-            //     .from(telegramBotChats)
-            //     .where('botKey', process.env.TELEGRAM_BOT_KEY);
-
-            // if (chatIds.length > 0) {
-            //     chatIds.forEach(async ({ chatId }) => {
             try {
                 await this.bot.sendMessage(chatId, message, { parse_mode: 'html' });
+
             } catch (err) {
-                // if (err.message.includes('403 Forbidden')) {
-                //     await db(chatType).where('chatId', chatId).del();
-                // }
                 log.error(err);
             }
-            //     });
-            // }
         } catch (err) {
             log.error(err);
         }
