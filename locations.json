@@ -1,0 +1,107 @@
+[
+    {
+        "id": 273,
+        "city": "Richmond",
+        "name": "Richmond claim centre (Elmbridge Way)"
+    },
+    {
+        "id": 93,
+        "city": "Richmond",
+        "name": "Richmond driver licensing (Lansdowne Centre mall)"
+    },
+    {
+        "id": 9,
+        "city": "Vancouver",
+        "name": "Vancouver driver licensing (Point Grey)"
+    },
+    {
+        "id": 275,
+        "city": "Vancouver",
+        "name": "Vancouver claim centre (Kingsway)"
+    },
+    {
+        "id": 274,
+        "city": "Burnaby",
+        "name": "Burnaby claim centre (Wayburne Drive)"
+    },
+    {
+        "id": 2,
+        "city": "Burnaby",
+        "name": "Burnaby driver licensing"
+    },
+    {
+        "id": 11,
+        "city": "Surrey",
+        "name": "Surrey driver licensing"
+    },
+    {
+        "id": 271,
+        "city": "Surrey",
+        "name": "Newton claim centre (68 Avenue)"
+    },
+    {
+        "id": 269,
+        "city": "Surrey",
+        "name": "Surrey claim centre (152A St.)"
+    },
+    {
+        "id": 281,
+        "city": "Surrey",
+        "name": "Guildford Boardwalk road test centre (Boardwalk mall)"
+    },
+    {
+        "id": 279,
+        "city": "Maple Ridge",
+        "name": "Maple Ridge claim centre (Dewdney Trunk Road)"
+    },
+    {
+        "id": 153,
+        "city": "Langley",
+        "name": "Langley driver licensing (Willowbrook Center)"
+    },
+    {
+        "id": 73,
+        "city": "Port Coquitlam",
+        "name": "Port Coquitlam driver licensing"
+    },
+    {
+        "id": 281,
+        "city": "Surrey",
+        "name": "Guildford Boardwalk road test centre (Boardwalk mall)"
+    },
+    {
+        "id": 11,
+        "city": "Surrey",
+        "name": "Surrey driver licensing"
+    },
+    {
+        "id": 1,
+        "city": "Abbotsford",
+        "name": "Abbotsford driver licensing (Clearbrook Plaza)"
+    },
+    {
+        "id": 2,
+        "city": "Burnaby",
+        "name": "Burnaby driver licensing"
+    },
+    {
+        "id": 8,
+        "city": "North Vancouver",
+        "name": "North Vancouver driver licensing"
+    },
+    {
+        "id": 93,
+        "city": "Richmond",
+        "name": "Richmond driver licensing (Lansdowne Centre mall)"
+    },
+    {
+        "id": 9,
+        "city": "Vancouver",
+        "name": "Vancouver driver licensing (Point Grey)"
+    },
+    {
+        "id": 3,
+        "city": "Chilliwack",
+        "name": "Chilliwack driver licensing"
+    }
+]
