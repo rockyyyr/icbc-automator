@@ -32,8 +32,6 @@ async function run() {
             if (results.length > 0) {
                 foundResults = true;
 
-                console.log(results);
-
                 for (const result of results) {
                     await tg.sendMessage(foundAppointmentMessage(location.name, result.time.format(Time.displayFormat)));
                 }
