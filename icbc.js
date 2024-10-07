@@ -6,6 +6,10 @@ const Users = require('./users');
 const ALL_DAYS = '[0,1,2,3,4,5,6]';
 const ALL_TIMES = '[0,1]';
 
+const VISA_EXPIRE_DATE = Time.toMoment('2024-10-29', Time.dateFormat);
+
+console.log('Cutoff Date: ', VISA_EXPIRE_DATE.format(Time.dateFormat));
+
 class ICBC {
     constructor(user) {
         this.newAppointmentThreshold = user.threshold;
@@ -22,6 +26,7 @@ class ICBC {
         this.latestAcceptableDate = null;
         this.earliestAppointmentDate = null;
         this.loginAttempts = 0;
+
     }
 
     headers(endpoint) {
@@ -114,7 +119,8 @@ class ICBC {
             const time = appointment.startTm;
 
             this.currentAppointmentDate = Time.icbcToMoment(date, time);
-            this.latestAcceptableDate = Time.toMoment(this.currentAppointmentDate).subtract(this.newAppointmentThreshold, 'days');
+            // this.latestAcceptableDate = Time.toMoment(this.currentAppointmentDate).subtract(this.newAppointmentThreshold, 'days');
+            this.latestAcceptableDate = VISA_EXPIRE_DATE;
         }
 
         if (Array.isArray(data.eligibleExams) && data.eligibleExams.length > 0) {
