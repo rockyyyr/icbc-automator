@@ -26,6 +26,14 @@ async function run() {
 
         let foundResults = false;
 
+        await tg.sendMessage(`
+            <b>Appointment Available</b>
+            <b>Location:</b> Test message!!!!!
+            <b>Time:</b> ${Time.toMoment().format(Time.displayFormat)}
+            <br>
+            <a href="https://onlinebusiness.icbc.com/webdeas-ui/home"><b>Book Now!</b></a>
+        `);
+
         for (const location of Locations) {
             const results = await icbc.appointmentsByLocation(location);
 
