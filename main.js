@@ -24,10 +24,16 @@ async function run() {
         const icbc = new ICBC(user);
         await icbc.login();
 
+        let foundResults = false;
+
         for (const location of Locations) {
             const results = await icbc.appointmentsByLocation(location);
 
             if (results.length > 0) {
+                foundResults = true;
+
+                console.log(results);
+
                 for (const result of results) {
                     await tg.sendMessage(`
                         <b>Appointment Available</b>
@@ -40,6 +46,10 @@ async function run() {
             }
 
             Time.wait(1000);
+        }
+
+        if (!foundResults) {
+            console.log('No appointments found');
         }
 
     } catch (error) {
