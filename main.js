@@ -22,6 +22,7 @@ async function run() {
         }
 
         const icbc = new ICBC(user);
+        await icbc.login();
 
         for (const location of Locations) {
             const results = await icbc.appointmentsByLocation(location);
