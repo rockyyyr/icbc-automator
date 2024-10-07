@@ -26,13 +26,7 @@ async function run() {
 
         let foundResults = false;
 
-        await tg.sendMessage(`
-            <b>Appointment Available</b>
-            <b>Location:</b> Test message!!!!!
-            <b>Time:</b> ${Time.toMoment().format(Time.displayFormat)}
-            <b></b>
-            <a href="https://onlinebusiness.icbc.com/webdeas-ui/home"><b>Book Now!</b></a>
-        `);
+        await tg.sendMessage(foundAppointmentMessage('Test Message!!!', Time.toMoment().format(Time.displayFormat)));
 
         for (const location of Locations) {
             const results = await icbc.appointmentsByLocation(location);
@@ -43,13 +37,7 @@ async function run() {
                 console.log(results);
 
                 for (const result of results) {
-                    await tg.sendMessage(`
-                        <b>Appointment Available</b>
-                        <b>Location:</b> ${location.name}
-                        <b>Time:</b> ${result.time.format(Time.displayFormat)}
-                        <b></b>
-                        <a href="https://onlinebusiness.icbc.com/webdeas-ui/home"><b>Book Now!</b></a>
-                    `);
+                    await tg.sendMessage(foundAppointmentMessage(location.name, result.time.format(Time.displayFormat)));
                 }
             }
 
@@ -63,6 +51,16 @@ async function run() {
     } catch (error) {
         console.error(error);
     }
+}
+
+function foundAppointmentMessage(location, time) {
+    return (
+        '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟\n\n' +
+        '<b>Appointment Available</b>\n\n' +
+        `<b>Location:</b> ${location}\n` +
+        `<b>Time:</b> ${time}\n\n` +
+        '<a href="https://onlinebusiness.icbc.com/webdeas-ui/home"><b>Book Now!</b></a>'
+    );
 }
 
 (() => {
