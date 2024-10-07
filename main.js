@@ -26,8 +26,6 @@ async function run() {
 
         let foundResults = false;
 
-        await tg.sendMessage(foundAppointmentMessage('Test Message!!!', Time.toMoment().format(Time.displayFormat)));
-
         for (const location of Locations) {
             const results = await icbc.appointmentsByLocation(location);
 
