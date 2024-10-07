@@ -30,7 +30,7 @@ async function run() {
             <b>Appointment Available</b>
             <b>Location:</b> Test message!!!!!
             <b>Time:</b> ${Time.toMoment().format(Time.displayFormat)}
-            <br>
+            <b></b>
             <a href="https://onlinebusiness.icbc.com/webdeas-ui/home"><b>Book Now!</b></a>
         `);
 
@@ -47,7 +47,7 @@ async function run() {
                         <b>Appointment Available</b>
                         <b>Location:</b> ${location.name}
                         <b>Time:</b> ${result.time.format(Time.displayFormat)}
-                        <br>
+                        <b></b>
                         <a href="https://onlinebusiness.icbc.com/webdeas-ui/home"><b>Book Now!</b></a>
                     `);
                 }
